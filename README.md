@@ -4,8 +4,7 @@ A benchmarking tool for benchmarking and comparing C and C++ applications for ex
 ## Requirements
 ```
 python 3.#.#
-timeit
-mathplotlib
+pip3 install matplotlib argparse
 ```
 ## IMPORTANT
 In order to get the program to work with an argument, the main function needs to be substituted with this :
