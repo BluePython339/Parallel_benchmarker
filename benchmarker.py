@@ -11,7 +11,7 @@ import argparse
 parser = argparse.ArgumentParser(description='C and C++ executable benchmarker.')
 parser.add_argument('-e','--executable', help="executable you want to benchmark", type=str, required=True)
 parser.add_argument('-i','--Max_Input_Size', help="maximum input you want to benchmark (default: 10000000)", type=int, default=10000000)
-parser.add_argument('-c','--competator', help="competator executable to compare benchmark", type=str)
+parser.add_argument('-c','--competitor', help="competitor executable to compare benchmark", type=str)
 
 
 def execute(datasize, executable):
@@ -41,10 +41,10 @@ if __name__ == "__main__":
 
 	a = bench_it(args.Max_Input_Size, args.executable)
 	plt.plot(a[0],a[1], label=args.executable)
-	if args.competator:
-		b = bench_it(args.Max_Input_Size, args.competator)
-		plt.plot(b[0],b[1], label=args.competator) #calculating the plot values
-		plt.title("{} benchmark compared to {}".format(args.executable, args.competator))
+	if args.competitor:
+		b = bench_it(args.Max_Input_Size, args.competitor)
+		plt.plot(b[0],b[1], label=args.competitor) #calculating the plot values
+		plt.title("{} benchmark compared to {}".format(args.executable, args.competitor))
 	else:
 		plt.title("benchmark for {}")
 	plt.xlabel("inputsize")
