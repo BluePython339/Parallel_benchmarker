@@ -35,6 +35,9 @@ python3 benchmark.py -e relax_openmp -i 150000
 ```
 benchmarking a script based on an exponentially increasing input until 150000.
 
+## Example output:
+![Example output](example.png)
+
 ##Question:
 feel free to ask in the RU twaars app
 
