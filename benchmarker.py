@@ -1,4 +1,4 @@
-# Made my the one and only Bluepython339
+# Made by the one and only Bluepython339
 # python 3.8.3
 
 from subprocess import *
