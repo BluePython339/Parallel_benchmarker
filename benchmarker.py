@@ -7,11 +7,14 @@ import os
 import matplotlib.pyplot as plt
 import argparse
 
+error_check = False
+
 
 parser = argparse.ArgumentParser(description='C and C++ executable benchmarker.')
 parser.add_argument('-e','--executable', help="executable you want to benchmark", type=str, required=True)
 parser.add_argument('-i','--Max_Input_Size', help="maximum input you want to benchmark (default: 10000000)", type=int, default=10000000)
 parser.add_argument('-c','--competitor', help="competitor executable to compare benchmark", type=str)
+parser.add_argument('-f','--fabians_feature', help="a flag which can be set to compensate for possible background processes slowing down the script",action='store_true')
 
 
 def execute(datasize, executable):
@@ -30,7 +33,12 @@ def bench_it(maxInput, executable):
 		#adding the new datasize to the list
 		output_num.append(inputsize)
 		#starting the timing sequence
-		output_time.append(t.timeit(1))
+		if error_check: #fabians feature
+			t1 = t.timeit(1) 
+			t2 = t.timeit(1)
+			output_time.append(((t1+t2)/2))
+		else:
+			output_time.append(t.timeit(1))
 		#calculating the new input size and rounding it to the nearest int
 		inputsize = int(inputsize+(inputsize/4))
 
@@ -38,6 +46,9 @@ def bench_it(maxInput, executable):
 
 if __name__ == "__main__":
 	args = parser.parse_args()
+
+	if args.fabians_feature:
+		error_check = True
 
 	a = bench_it(args.Max_Input_Size, args.executable)
 	plt.plot(a[0],a[1], label=args.executable)
