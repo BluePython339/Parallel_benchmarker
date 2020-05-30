@@ -20,8 +20,11 @@ will execute program with the default input.
                         executable you want to benchmark
   -i MAX_INPUT_SIZE, --Max_Input_Size MAX_INPUT_SIZE
                         maximum input you want to benchmark (default: 10000000)
-  -c COMPETATOR, --competator COMPETATOR
-                        competator executable to compare benchmark
+  -c COMPETITOR, --competitor COMPETITOR
+                        competitor executable to compare benchmark
+  -f, --fabians_feature
+                        a flag which can be set to compensate for possible background processes slowing down the
+                        script
 
 ```
 ## Examples:
