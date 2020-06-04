@@ -45,6 +45,7 @@ struct timespec get_elapsed_time(struct timespec* start,struct timespec* stop)
 }
 ```
 Using this technique it will give us the wallclock time of the workloop execution.
+MAKE SURE TO REMOVE ANY OTHER PRINTF STATEMENTS FROM YOUR CODE!!!!!
 
 
 ## Usage:
