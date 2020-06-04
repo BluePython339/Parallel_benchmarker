@@ -19,7 +19,10 @@ parser.add_argument('-f','--fabians_feature', help="a flag which can be set to c
 
 def execute(datasize, executable):
 	print("checking datasize {}".format(datasize))
-	procces = call(['./{} {}'.format(executable, datasize)],shell=True) #start the c script with passed data
+	procces = check_output(['./{} {}'.format(executable, datasize)],shell=True)
+	tmp = procces.decode('utf-8').split(' ')
+	procces = float(tmp[0])+(float(tmp[1])/1000000000)
+	return float(procces) #start the c script with passed data
 
 def bench_it(maxInput, executable):
 	output_num = [] #list of inputs we tried
@@ -29,16 +32,16 @@ def bench_it(maxInput, executable):
 	while inputsize < maxInput: #
 		print("now trying: {}".format(inputsize))
 		#creating the timeing object
-		t = timeit.Timer("execute({},'{}')".format(inputsize, executable), setup="from __main__ import execute")
 		#adding the new datasize to the list
 		output_num.append(inputsize)
 		#starting the timing sequence
-		if error_check: #fabians feature
-			t1 = t.timeit(1) 
-			t2 = t.timeit(1)
-			output_time.append(((t1+t2)/2))
+		if error_check:
+			outputs = [] #fabians feature
+			for i in range(5):
+				outputs.append(execute(inputsize, executable))
+			output_time.append((sum(outputs)/5))
 		else:
-			output_time.append(t.timeit(1))
+			output_time.append(execute(inputsize, executable))
 		#calculating the new input size and rounding it to the nearest int
 		inputsize = int(inputsize+(inputsize/4))
 
@@ -57,7 +60,7 @@ if __name__ == "__main__":
 		plt.plot(b[0],b[1], label=args.competitor) #calculating the plot values
 		plt.title("{} benchmark compared to {}".format(args.executable, args.competitor))
 	else:
-		plt.title("benchmark for {}")
+		plt.title("benchmark for {}".format(args.executable																													))
 	plt.xlabel("inputsize")
 	plt.ylabel("time in seconds")
 	plt.legend()
